@@ -13,12 +13,16 @@ from taskapp.tasks import scrap_web_page
 class WebPageModelSerializer(serializers.ModelSerializer):
 
     scrapped_by = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    links = serializers.SerializerMethodField()
     
     class Meta:
         """Meta class."""
         model = WebPage
-        fields = ('page','name','scrapped_by',)
+        fields = ('page','name','scrapped_by','state','links')
     
+    def get_links(self, obj):
+        return LinkScrapped.objects.filter(page=obj).count()
+
     def create(self, validated_data):
         """Handle web page creation and starts the scrapper."""
         web_page = WebPage.objects.create(**validated_data)

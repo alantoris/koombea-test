@@ -1,31 +1,10 @@
 from rest_framework import status
-from rest_framework.authtoken.models import Token
 from rest_framework.exceptions import ErrorDetail
 from rest_framework.test import APIClient
 from django.test import TestCase
 
 from rest_framework import status
-from users.models import User
-
-
-def loginWithAPI(client, email, password):
-    response = client.post('/users/login/',
-                           dict(email=email, password=password))
-    if response.status_code != status.HTTP_201_CREATED or 'access_token' not in response.data:
-        print(response.data)
-        raise RuntimeError('Login failed in test. Status code {}'.format(
-            response.status_code))
-    token = response.data['access_token']
-    client.credentials(HTTP_AUTHORIZATION=f'Token {token}')
-    return token
-
-
-def create_some_user(email="johndoe@mail.com", password='secret12345'):
-    user = User(email=email, username=email)
-    user.set_password(password)
-    user.save()
-    return user
-
+from scraper.utils import create_some_user
 
 class NoAuthUserViewSetTest(TestCase):
     def setUp(self):

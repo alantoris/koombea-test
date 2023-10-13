@@ -25,3 +25,10 @@ docker-compose run --rm django python manage.py test  <--- Test execution
 docker-compose run --rm django coverage manage.py test  <--- Test execution with coverage
 docker-compose run --rm django coverage report <---> Test results
 ```
+
+
+# Tools used 
+
+Visual Studio Code
+Postman
+Google Chrome

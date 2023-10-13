@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import './App.css';
 import { SignIn } from './components/Login';
 import { SignUp } from './components/SingUp';
-import { Page } from './components/PagesList';
+import { Page } from './components/PagesControl';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';

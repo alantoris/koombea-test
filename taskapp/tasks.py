@@ -19,15 +19,15 @@ def scrap_web_page(web_page_pk):
 
     parser = Parser(webpage.page)
     try:
-        webpage.name = parser.get_title()
+        webpage.name = parser.get_title()[:127]
         webpage.save()
 
         links = parser.get_all_links()
         for link in links:
             LinkScrapped.objects.create(
                 page=webpage,
-                name=link["body"],
-                link=link["href"]
+                name=link["body"][:127] if link["body"] is not None else "",
+                link=link["href"][:127]
             )
         webpage.state = WebPage.STATE_DONE
         webpage.save()

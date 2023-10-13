@@ -1,7 +1,21 @@
 # koombea-test
 Solution for python test of the koombea selection process
 
-## Development
+
+## Instructions 
+
+To execute this test it is enough to simply build the docker images generated using the docker compose file
+
+`docker-compose build`
+
+After its completion we will simply launch the django backend containers, the database and the tools for asynchronous tasks (celery, redis)
+
+`docker-compose up`
+
+After these steps we will have the backend available in our local environment on port 8000
+
+
+## Development tips
 
 ```bash
 
@@ -31,4 +45,4 @@ docker-compose run --rm django coverage report <---> Test results
 
 Visual Studio Code
 Postman
-Google Chrome
+Google Chromes

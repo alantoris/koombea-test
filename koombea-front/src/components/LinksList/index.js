@@ -4,20 +4,20 @@ import {
   TablePagination,
   tablePaginationClasses as classes,
 } from '@mui/base/TablePagination';
-import { get_pages } from '../../api/pages';
+import { get_links } from '../../api/pages';
 
-export function PageList({setPageSelected}) {
+export function LinkList({webpage_pk}) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
 
-  const [pages, setPages] = React.useState([]);
-  const [pagesCant, setPagesCant] = React.useState(0);
+  const [links, setLinks] = React.useState([]);
+  const [linksCant, setLinksCant] = React.useState(0);
 
 
   const offset = () => {
     if (rowsPerPage < 0) {
-        return pagesCant
+        return linksCant
     }
     else{
         return page*rowsPerPage
@@ -25,10 +25,10 @@ export function PageList({setPageSelected}) {
   }
 
   React.useEffect(() => {
-    get_pages(page, rowsPerPage, offset()).then(({ data }) => {
+    get_links(webpage_pk, page, rowsPerPage, offset()).then(({ data }) => {
         console.log(data)
-        setPages(data.results)
-        setPagesCant(data.count)
+        setLinks(data.results)
+        setLinksCant(data.count)
       }).catch(function (error) {
         if (error.response) {
           // Request made and server responded
@@ -42,11 +42,8 @@ export function PageList({setPageSelected}) {
         }
       })
 
-  }, [page, rowsPerPage]);
+  }, [page, rowsPerPage, webpage_pk]);
 
-  const handleRowClick = (page_pk) => {
-    setPageSelected(page_pk)
-  }
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -67,26 +64,16 @@ export function PageList({setPageSelected}) {
           </tr>
         </thead>
         <tbody>
-          {(pages).map((page) => {
-            return page.state === "IN_PROCESS" ?
-            <tr key={page.id}>
-              <td style={{ width: 450 }} align="right" >
-                {page.name}
+          {(links).map((link) => (
+            <tr key={link.id}>
+              <td style={{ width: 300 }} align="right">
+                {link.name}
               </td>
-              <td style={{ width: 160 }} align="right">
-                {page.state}
-              </td>
-            </tr>
-            :
-            <tr key={page.id} onClick={() => handleRowClick(page.id)}>
-              <td style={{ width: 450 }} align="right">
-                {page.name}
-              </td>
-              <td style={{ width: 160 }} align="right">
-                {page.links}
+              <td style={{ width: 300 }} align="right">
+                {link.link}
               </td>
             </tr>
-          }
+          )
             
           )}
 
@@ -96,7 +83,7 @@ export function PageList({setPageSelected}) {
             <CustomTablePagination
               rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
               colSpan={3}
-              count={pagesCant}
+              count={linksCant}
               rowsPerPage={rowsPerPage}
               page={page}
               slotProps={{

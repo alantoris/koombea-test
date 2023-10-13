@@ -9,11 +9,13 @@ import { useForm, Controller } from "react-hook-form";
 import Grid from '@mui/material/Grid';
 import { scrape_page } from '../../api/pages'
 import { PageList } from '../PagesList'
+import { LinkList } from '../LinksList'
 
 
 export function Page() {
   const { control, handleSubmit, setError } = useForm();
   const [errorMessages, setErrorMessages] = useState([]);
+  const [pageSelected, setPageSelected] = useState(0);
 
 
   const setFormError = (field, message) => {
@@ -26,8 +28,6 @@ export function Page() {
   const onSubmit = (data) => {
     scrape_page(data).then(({ data }) => {
         console.log(data)
-        setRedrawKey( Math.random())
-        //TODO: Reload table
     }).catch(function (error) {
         if (error.response) {
           // Request made and server responded
@@ -99,10 +99,13 @@ export function Page() {
         </form>
 
         <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <PageList/>
-        </Grid>
-        </Grid>
+          <Grid item xs={12}>
+            <PageList setPageSelected={setPageSelected}/>
+          </Grid>
+          <Grid item xs={12}>
+            {(pageSelected > 0) && <LinkList webpage_pk={pageSelected}/> }
+          </Grid>
+          </Grid>
       </Paper>
     </Container>
   );

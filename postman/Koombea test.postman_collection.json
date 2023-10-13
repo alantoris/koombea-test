@@ -97,18 +97,21 @@
 		},
 		{
 			"name": "WebPage list",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
-				"method": "POST",
+				"method": "GET",
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Token {{token}}",
+						"value": "Token dd4424493fdf10d372d76932fc31326fe2697f4d",
 						"type": "text"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\": \"default\"\n}",
+					"raw": "",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -116,12 +119,49 @@
 					}
 				},
 				"url": {
-					"raw": "{{host}}/trips/",
+					"raw": "{{host}}/pages/",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
-						"trips",
+						"pages",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Links list",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token dd4424493fdf10d372d76932fc31326fe2697f4d",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/links/24/",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"links",
+						"24",
 						""
 					]
 				}

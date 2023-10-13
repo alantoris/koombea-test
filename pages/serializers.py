@@ -18,7 +18,7 @@ class WebPageModelSerializer(serializers.ModelSerializer):
     class Meta:
         """Meta class."""
         model = WebPage
-        fields = ('page','name','scrapped_by','state','links')
+        fields = ('id','page','name','scrapped_by','state','links')
     
     def get_links(self, obj):
         return LinkScrapped.objects.filter(page=obj).count()

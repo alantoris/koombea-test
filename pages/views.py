@@ -27,9 +27,13 @@ class WebPageViewSet(mixins.CreateModelMixin,
         return queryset
 
 
-class LinkScrappedViewSet(viewsets.ReadOnlyModelViewSet):
+class LinkScrappedViewSet(mixins.ListModelMixin,viewsets.GenericViewSet):
     """
     A simple ViewSet for viewing links scrapped.
     """
-    queryset = LinkScrapped.objects.all()
     serializer_class = LinkScrappedModelSerializer
+
+    def get_queryset(self):
+        page = self.kwargs.get('page_id')
+        queryset = LinkScrapped.objects.filter(page__id=page,page__scrapped_by=self.request.user)
+        return queryset

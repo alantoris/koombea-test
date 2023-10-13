@@ -11,7 +11,7 @@ from .views import WebPageViewSet, LinkScrappedViewSet
 
 router = DefaultRouter()
 router.register(r'pages', WebPageViewSet, basename='pages')
-router.register(r'links', LinkScrappedViewSet, basename='links')
+router.register(r'links/(?P<page_id>[0-9a-f-]+)', LinkScrappedViewSet, basename='links')
 
 urlpatterns = [
     path('', include(router.urls))

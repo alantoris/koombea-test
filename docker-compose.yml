@@ -27,3 +27,27 @@ services:
       - local_postgres_data:/var/lib/postgresql/data
     env_file:
       - ./.envs/.local/.postgres
+
+
+  redis:
+    image: redis:3.2
+
+  celeryworker:
+    <<: *django
+    image: celeryworker
+    depends_on:
+      - redis
+      - postgres
+      
+    ports: []
+    command: /start-celeryworker
+
+  celerybeat:
+    <<: *django
+    image: celerybeat
+    depends_on:
+      - redis
+      - postgres
+      
+    ports: []
+    command: /start-celerybeat

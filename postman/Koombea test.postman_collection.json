@@ -61,6 +61,72 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "WebPage creation",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token dd4424493fdf10d372d76932fc31326fe2697f4d",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"page\": \"http://www.google.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/pages/",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"pages",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "WebPage list",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"default\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/trips/",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"trips",
+						""
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
